@@ -19,7 +19,7 @@ Next navigate into the vagrant-lamp directory and execute the 'vagrant up' comma
 
 If you are still inside the virtual machine instance type 'exit' to return to the host os.  Next let's setup a website to host on the virtual machine.  Run 'git clone https://github.com/dnielsen/campapp.git sites/campapp'.  
 
-Now we have a simple php website installed into the directory sites/campapp.  Next run 'vagrant provision' to configure the site.  Once this completes point your borwser to 192,168.56.3.
+Now we have a simple php website installed into the directory sites/campapp.  Next run 'vagrant provision' to configure the site.  Once this completes point your browser to 192.168.56.3.
 
-If everything worked correctly you should now see the sampel website.
+If everything worked correctly you should now see the sample website.
 
