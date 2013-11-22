@@ -1,16 +1,16 @@
-symfony-mysql
+Vagrant Development Environment
 =============
 
 This project simplifies the process of web development by creating a simple server environment with apache2, mysql-server, and php.
 
 This projects assumes you have already installed the following:
-# git (http://git-scm.com/downloads)
-# VirtualBox (https://www.virtualbox.org/wiki/Downloads)
-# vagrant (http://downloads.vagrantup.com/)
+* git (http://git-scm.com/downloads)
+* VirtualBox (https://www.virtualbox.org/wiki/Downloads)
+* vagrant (http://downloads.vagrantup.com/)
 
 Now add a few plugins to your vagrant environment from the commandline:
-# vagrant plugin install vagrant-vbguest
-# vagrant plugin install vagrant-omnibus
+* vagrant plugin install vagrant-vbguest
+* vagrant plugin install vagrant-omnibus
 
 The first one ensures that the guest additions package has the same version as the guest additions package on the host os.
 The second plugin installs ruby and chef on the guest os allowing the vagrant script to complete.
