@@ -4,9 +4,9 @@ Vagrant Development Environment
 This project simplifies the process of web development by creating a simple server environment with apache2, mysql-server, and php.
 
 This projects assumes you have already installed the following:
-* git (http://git-scm.com/downloads)
-* VirtualBox (https://www.virtualbox.org/wiki/Downloads)
-* vagrant (http://downloads.vagrantup.com/)
+* git (http://git-scm.com/downloads) (ex: v1.8.4.3)
+* VirtualBox (https://www.virtualbox.org/wiki/Downloads)(ex: v4.3.2)
+* vagrant (http://downloads.vagrantup.com/)(ex: v1.3.5)
 
 Now add a few plugins to your vagrant environment from the commandline:
 * vagrant plugin install vagrant-vbguest
