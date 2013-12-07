@@ -5,21 +5,37 @@ This project simplifies the process of web development by creating a simple serv
 
 This projects assumes you have already installed the following:
 * git (http://git-scm.com/downloads) (ex: v1.8.4.3)
-* VirtualBox (https://www.virtualbox.org/wiki/Downloads)(ex: v4.3.2)
-* vagrant (http://downloads.vagrantup.com/)(ex: v1.3.5)
+* VirtualBox (https://www.virtualbox.org/wiki/Downloads) (ex: v4.3.2)
+* vagrant (http://downloads.vagrantup.com/) (ex: v1.3.5)
+
+Note: On Windows when installing Git it is recommended that you select the option to include the bin directory in your path to use the vagrant ssh command.  Otherwise you can use a differt ssh client such as PuTTY.
 
 Now add a few plugins to your vagrant environment from the commandline:
-* vagrant plugin install vagrant-vbguest
-* vagrant plugin install vagrant-omnibus
+* `vagrant plugin install vagrant-vbguest` Ensures that the "guest additions" on the guest os is up to date. 
+* `vagrant plugin install vagrant-omnibus` Installs ruby and chef on the guest os allowing the vagrant script to complete.
 
-The first one ensures that the guest additions package has the same version as the guest additions package on the host os.
-The second plugin installs ruby and chef on the guest os allowing the vagrant script to complete.
 
-Next navigate into the vagrant-lamp directory and execute the 'vagrant up' command.  Once complete you will have a working virtual machine.  To access type 'vagrant ssh'.  This is a working Ubuntu 12.04 instance.
+Stackalicious Vagrant environment contains a 'sites' directory where you can provide your own website files to be hosted in the virtual environment.  As an example the following instructions will install a simple website called campapp.
 
-If you are still inside the virtual machine instance type 'exit' to return to the host os.  Next let's setup a website to host on the virtual machine.  Run 'git clone https://github.com/dnielsen/campapp.git sites/campapp'.  
+> cd vagrant-lamp/sites  
+> git clone git@github.com:dnielsen/campapp.git  
+> cd ..  
+> vagrant up  
 
-Now we have a simple php website installed into the directory sites/campapp.  Next run 'vagrant provision' to configure the site.  Once this completes point your browser to 192.168.56.3.
+Once complete you will have a complete webserver hosting your sample website.  
 
-If everything worked correctly you should now see the sample website.
+Q: How do I see the webpage  
+A: Open your web browser and type '192.168.56.3' for the url.  This is the static ip assigned to the vm from Vagrantfile.  
+
+Q: Can I directly access the virtual machine?  
+A: Graphical access is not enabled. To access from the command line type `vagrant ssh` from the vagrant-lamp directory. For Windows you may need to use PuTTY if ssh is not accessible from the command line, see note above.
+
+Q: How is the server configured?  
+A: The Vagrantfile script defines memory and operating system parameters.  The `setup_env.sh` is used to install and configure primary applications: apache, php and mysql.  Finally sites are expected to have a `setup_app.sh` which configures the apache virtual host and populates the database in the  campapp example.
+
+Q: How can I make changes to the site?  
+A: You can change the website directly from the sites folder and refresh the browser to see the results.
+
+Q: How do I shutdown/restart/startover the virtual machine in case things go wrong?  
+A: `vagrant halt` / `vagrant reload` / `vagrant destroy`  Also if you want to rerun the script use `vagrant provison`.
 
