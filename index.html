@@ -13,13 +13,13 @@
     <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
 
-    <title>Vagrant-env by stackalicious</title>
+    <title>Stackalicious by stackalicious</title>
   </head>
 
   <body>
     <header>
       <div class="inner">
-        <h1>Vagrant-env</h1>
+        <h1>Stackalicious</h1>
         <h2></h2>
         <a href="https://github.com/stackalicious/vagrant-env" class="button"><small>View project on</small>GitHub</a>
       </div>
@@ -63,7 +63,7 @@ vagrant up  </p>
 A: Open your web browser and type '192.168.56.3' for the url.  This is the static ip assigned to the vm from Vagrantfile.  </p>
 
 <p>Q: Can I directly access the virtual machine?<br>
-A: Graphical access is not enabled. To access from the command line type <code>vagrant ssh</code> from the vagrant-lamp directory. For Windows you may need to use PuTTY if ssh is not accessible from the command line, see note above.</p>
+A: Graphical access is not enabled. To access from the command line type <code>vagrant ssh</code> from the vagrant-lamp directory. For Windows, if ssh is not available from the command line, you will need to use a 3rd party ssh client such as PuTTY. Connect using the static ip 192.168.56.3 port 22 and login with username vagrant, password vagrant.  </p>
 
 <p>Q: How is the server configured?<br>
 A: The Vagrantfile script defines memory and operating system parameters.  The <code>setup_env.sh</code> is used to install and configure primary applications: apache, php and mysql.  Finally sites are expected to have a <code>setup_app.sh</code> which configures the apache virtual host and populates the database in the  campapp example.</p>
