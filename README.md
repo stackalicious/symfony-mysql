@@ -28,7 +28,7 @@ Q: How do I see the webpage
 A: Open your web browser and type '192.168.56.3' for the url.  This is the static ip assigned to the vm from Vagrantfile.  
 
 Q: Can I directly access the virtual machine?  
-A: Graphical access is not enabled. To access from the command line type `vagrant ssh` from the vagrant-lamp directory. For Windows you may need to use PuTTY if ssh is not accessible from the command line, see note above.
+A: Graphical access is not enabled. To access from the command line type `vagrant ssh` from the vagrant-lamp directory. For Windows, if ssh is not available from the command line, you will need to use a 3rd party ssh client such as PuTTY. Connect using the static ip 192.168.56.3 port 22 and login with username vagrant, password vagrant.  
 
 Q: How is the server configured?  
 A: The Vagrantfile script defines memory and operating system parameters.  The `setup_env.sh` is used to install and configure primary applications: apache, php and mysql.  Finally sites are expected to have a `setup_app.sh` which configures the apache virtual host and populates the database in the  campapp example.
