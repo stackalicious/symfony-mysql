@@ -33,12 +33,22 @@ echo
 echo "---------------------------------------"
 echo "Install Applications"
 sudo apt-get update
-sudo apt-get -q -y install htop vim php5 php5-mysql apache2 
+sudo apt-get -q -y install htop vim apache2 
 echo "---------------------------------------"
 echo
 
+if ! grep -qe "^ServerName localhost$" /etc/apache2/apache2.conf; then 
+    echo "----------------------------------------"
+    echo "Add fallback server name to apache2.conf";
+    echo "ServerName localhost" | sudo tee -a /etc/apache2/apache2.conf;
+    echo "----------------------------------------";
+fi
+
 echo "---------------------------------------"
-echo "Fix php.ini"
+echo "Install php"
+sudo apt-get -q -y install php5 php5-mysql 
+echo 
+echo "Configure php.ini"
 sed -i "s/\(disable_functions = *\).*/\1/" /etc/php5/cli/php.ini
 sed -i "s/\(memory_limit = *\).*/\1-1/" /etc/php5/cli/php.ini
 sed -i "s/.*\(date.timezone *=\).*/\1 America\/Los_Angeles/" /etc/php5/cli/php.ini
