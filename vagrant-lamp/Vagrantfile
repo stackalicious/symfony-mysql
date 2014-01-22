@@ -1,6 +1,10 @@
 # -*- mode: ruby -*-
 # vi: set ft=ruby :
 
+require 'yaml'
+
+#vconfig = YAML::load_file(“etc/users/” + ENV['USER'] +
+
 # Vagrantfile API/syntax version. Don't touch unless you know what you're doing!
 VAGRANTFILE_API_VERSION = "2"
 
@@ -84,23 +88,24 @@ HERE
       config.vm.provision :shell do |shell|
         shell.path = "setup_env.sh"
         shell.args = cfg[:environment] if cfg[:environment]
-      end
-       
+      end 
     end
   
   end
   
   config.vm.provider :hp do |rs|
-    rs.access_key  = "YS11LX9TT81LNVXKSKM7"
-    rs.secret_key = "r8zsRj+i/SfVSXkOiUlVZg2SJBw2p2izogqKlo+W"
-    rs.flavor   = "standard.small"
-    rs.tenant_id = "10873218563681"
-    rs.server_name = "vagrant-test"
-    rs.image    = "Ubuntu Precise 12.04 LTS Server 64-bit 20121026 (b)"
-    rs.keypair_name = "vagrant2"
-    rs.ssh_private_key_path = "~/.ssh/vagrant2.pem"
-    rs.ssh_username = "ubuntu"
-    rs.availability_zone = "us-west"
+    hpConfig = YAML::load_file("hpConfig.yml")
+    
+    rs.access_key  = hpConfig['access_key']
+    rs.secret_key = hpConfig['secret_key']
+    rs.flavor   = hpConfig['flavor'] #"standard.small"
+    rs.tenant_id = hpConfig['tenant_id']
+    rs.server_name = hpConfig['server_name'] #"vagrant-test"
+    rs.image    = hpConfig['image'] #"Ubuntu Precise 12.04 LTS Server 64-bit 20121026 (b)"
+    rs.keypair_name = hpConfig['keypair_name'] #"vagrant2"
+    rs.ssh_private_key_path = hpConfig['ssh_private_key_path'] #"~/.ssh/vagrant2.pem"
+    rs.ssh_username = hpConfig['ssh_username'] #"ubuntu"
+    rs.availability_zone = hpConfig['availability_zone'] #"us-west","us-east"
     # Security Groups defaults to ["default"]
     # rs.security_groups = ["group1", "group2"]
   end  
