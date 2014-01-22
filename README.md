@@ -1,4 +1,4 @@
-Stackalicious Single-Node Vagrant LAMP Environment
+Stackalicious Simple LAMP Environment
 =============
 
 This project simplifies the process of web development in a couple ways:
