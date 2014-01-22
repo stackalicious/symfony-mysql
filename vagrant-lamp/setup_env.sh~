@@ -56,8 +56,6 @@ echo "---------------------------------------"
 for dir in ${SYNC}/*/
 do
     cd $dir
-    
-    #Remember basename of the current directory
     site=${PWD##*/};
     
     if [ ! -f ${dir}/setup_app.sh ]; then

@@ -14,7 +14,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
       :ip       => '192.168.56.3',
       #:forwards => { 80 => 20080, 443 => 20443, },
       :vbox_custom => ["--memory", 1024],
-      :environment => 'root platformd',
+      :environment => "root platformd",
       :box      => 'opscode-ubuntu-12.04',
       :box_url      => 'https://opscode-vm-bento.s3.amazonaws.com/vagrant/opscode_ubuntu-12.04_provisionerless.box',
     },
@@ -22,7 +22,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
       #:hostname => 'proxy01.example.com',
       #:ip       => '192.168.231.10', #automatically assigned
       #:forwards => { 80 => 30280 },
-      :environment => 'root platformd',
+      :environment => "root platformd",
      },
   }.each do |name,cfg|
      
