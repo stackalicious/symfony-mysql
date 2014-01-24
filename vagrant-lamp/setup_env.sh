@@ -43,12 +43,16 @@ fi
 
 echo "---------------------------------------"
 echo "Install php"
-sudo apt-get -q -y install php5 php5-mysql 
+sudo apt-get -q -y install php5 php5-mysql php5-curl
 echo 
 echo "Configure php.ini"
 sed -i "s/\(disable_functions = *\).*/\1/" /etc/php5/cli/php.ini
 sed -i "s/\(memory_limit = *\).*/\1-1/" /etc/php5/cli/php.ini
 sed -i "s/.*\(date.timezone *=\).*/\1 America\/Los_Angeles/" /etc/php5/cli/php.ini
+
+sed -i "s/\(disable_
+functions = *\).*/\1/" /etc/php5/apache2/php.ini
+sed -i "s/\(memory_limit = *\).*/\1-1/" /etc/php5/apache2/php.ini
 sed -i "s/.*\(date.timezone *=\).*/\1 America\/Los_Angeles/" /etc/php5/apache2/php.ini
 echo "---------------------------------------"
 

@@ -10,6 +10,9 @@ VAGRANTFILE_API_VERSION = "2"
 
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
+  #This is automatic for vbox provider
+  config.vm.synced_folder "./", "/vagrant"
+  
   config.vm.box = "dummy"
   
   {
@@ -53,9 +56,6 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 HERE
       config.vm.provision "shell", inline: updateHosts
 
-      #This is automatic for vbox provider
-      config.vm.synced_folder "./", "/vagrant"
-      
       $vbox_custom = ["modifyvm", :id] + (cfg[:vbox_custom] || []) 
       #if ! customize.include?("--name")
       #  # This adds the name of the box to the vm-name in 
