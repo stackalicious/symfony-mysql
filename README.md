@@ -56,7 +56,7 @@ Next you will need to provide the following information from your HP Cloud accou
 * ssh_username = "ubuntu", user name from HP vm images
 * availability_zone = "us-west" or "us-east", More options are coming in the future.
 
-Set these values in the :hp provider block of the Vagrantfile, towards the bottom of the file.
+To configure the deployment script rename the file hpConfig.template.yml to hpConfig.yml. Now replace the default values with the correct values for your HP Public Clound account.
 
 Once setup you can deploy using the command 'vagrant up remote --provider=hp'.  Once complete run 'vagrant ssh-config remote' to retrieve the external ip address, listed as the 'HostName'.  This ip address is what you enter into the web browser.  To access the deployed server run 'vagrant ssh remote' similar to the local deployment scenerio.
 
