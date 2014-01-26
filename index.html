@@ -29,17 +29,34 @@
       <div class="inner clearfix">
         <section id="main-content">
           <h1>
-<a name="vagrant-development-environment" class="anchor" href="#vagrant-development-environment"><span class="octicon octicon-link"></span></a>Vagrant Development Environment</h1>
+<a name="stackalicious-simple-lamp-environment" class="anchor" href="#stackalicious-simple-lamp-environment"><span class="octicon octicon-link"></span></a>Stackalicious Simple LAMP Environment</h1>
 
-<p>This project simplifies the process of web development by creating a simple server environment with apache2, mysql-server, and php.</p>
+<p>This project simplifies the process of web development in a couple ways:</p>
+
+<ul>
+<li>The server environment is defined by a base image overlaid with an install script so every deployment contains exactly what you need and nothing else.</li>
+<li>Since the server environment is virtual we can deploy to different targets.  Specifically a local virtual machine for testing and a remote/global deploy to HP Public Cloud.</li>
+<li>Our install scripts are split into two components: platform/environment setup and app specific setup.  This allows for developers to promote and share best practices at the platform level while keeping their application details private.</li>
+</ul><p>This stack script installs the following components:</p>
+
+<ul>
+<li>Ubuntu Linux (12.04)</li>
+<li>Apache2 (2.2.22)</li>
+<li>MySQL (5.5.34)</li>
+<li>Php5 (5.4.9)</li>
+</ul><h2>
+<a name="prerequisites" class="anchor" href="#prerequisites"><span class="octicon octicon-link"></span></a>Prerequisites</h2>
 
 <p>This projects assumes you have already installed the following:</p>
 
 <ul>
 <li>git (<a href="http://git-scm.com/downloads">http://git-scm.com/downloads</a>) (ex: v1.8.4.3)</li>
 <li>VirtualBox (<a href="https://www.virtualbox.org/wiki/Downloads">https://www.virtualbox.org/wiki/Downloads</a>) (ex: v4.3.2)</li>
-<li>vagrant (<a href="http://downloads.vagrantup.com/">http://downloads.vagrantup.com/</a>) (ex: v1.3.5)</li>
+<li>vagrant (<a href="http://downloads.vagrantup.com/">http://downloads.vagrantup.com/</a>) (ex: v1.4.3)</li>
 </ul><p>Note: On Windows when installing Git it is recommended that you select the option to include the bin directory in your path to use the vagrant ssh command.  Otherwise you can use a differt ssh client such as PuTTY.</p>
+
+<h2>
+<a name="install" class="anchor" href="#install"><span class="octicon octicon-link"></span></a>Install</h2>
 
 <p>Now add a few plugins to your vagrant environment from the commandline:</p>
 
@@ -48,22 +65,62 @@
 <code>vagrant plugin install vagrant-vbguest</code> Ensures that the "guest additions" on the guest os is up to date. </li>
 <li>
 <code>vagrant plugin install vagrant-omnibus</code> Installs ruby and chef on the guest os allowing the vagrant script to complete.</li>
+<li>
+<code>vagrant plugin install vagrant-hp</code> (optional) Adds ability to deploy to HP Public Cloud</li>
 </ul><p>Stackalicious Vagrant environment contains a 'sites' directory where you can provide your own website files to be hosted in the virtual environment.  As an example the following instructions will install a simple website called campapp.</p>
 
 <blockquote>
 <p>cd vagrant-lamp/sites<br>
 git clone <a href="mailto:git@github.com">git@github.com</a>:dnielsen/campapp.git<br>
-cd ..<br>
-vagrant up  </p>
+cd .. 
+vagrant up local</p>
 </blockquote>
 
-<p>Once complete you will have a complete webserver hosting your sample website.  </p>
+<p>Once complete you will have a complete server environment hosting your website from within VirtualBox.  You will be able to view the website only from the current machine by pointing your browser to 192.168.56.3.</p>
+
+<p>Any changes you make to the web app will be automatically updated within the virtual machine and reflected in the browser immediatly.</p>
+
+<h2>
+<a name="deploy-to-cloud" class="anchor" href="#deploy-to-cloud"><span class="octicon octicon-link"></span></a>Deploy to Cloud</h2>
+
+<p>Stackalicious script also provides support for cloud deployment.  Today we support only HP Public Cloud deployment.  To get started you need to have a HP Cloud (<a href="http://www.hpcloud.com/">http://www.hpcloud.com/</a>) account set up.</p>
+
+<p>Next you will need to provide the following information from your HP Cloud account to the Vagrantfile:</p>
+
+<ul>
+<li>access_key  = (key id),  In the dropdown at top right by 'Horizon Preview' select 'Manage Access Keys' use the key id here.</li>
+<li>secret_key = (secret key),  Select 'Show Secret Keys' from page above and copy in the secret key.</li>
+<li>flavor   = eg "standard.small"  See the 'Launch Instance' panel (here)[<a href="https://horizon.hpcloud.com/project/instances/">https://horizon.hpcloud.com/project/instances/</a>] for details.</li>
+<li>tenant_id = (project id), Use the id listed on <a href="https://horizon.hpcloud.com/control_services/projects/">this page</a>.</li>
+<li>server_name = eg "vagrant-test", machine name for the new server instance<br>
+</li>
+<li>image    = eg "Ubuntu Precise 12.04 LTS Server 64-bit 20121026 (b)", predefined vm image provided by HP<br>
+</li>
+<li>keypair_name = eg "hp-vagrant-keypair", Create from the key pairs tab of <a href="https://horizon.hpcloud.com/project/access_and_security/">Access &amp; Security</a> page.<br>
+</li>
+<li>ssh_private_key_path = eg "~/.ssh/hp-vagrant-keypair.pem", File path to key, generated by above step</li>
+<li>ssh_username = "ubuntu", user name from HP vm images</li>
+<li>availability_zone = "us-west" or "us-east", More options are coming in the future.</li>
+</ul><p>To configure the deployment script rename the file hpConfig.template.yml to hpConfig.yml. Now replace the default values with the correct values for your HP Public Clound account.</p>
+
+<p>Once setup you can deploy using the command 'vagrant up remote --provider=hp'.  Once complete run 'vagrant ssh-config remote' to retrieve the external ip address, listed as the 'HostName'.  This ip address is what you enter into the web browser.  To access the deployed server run 'vagrant ssh remote' similar to the local deployment scenerio.</p>
+
+<h2>
+<a name="troubleshooting" class="anchor" href="#troubleshooting"><span class="octicon octicon-link"></span></a>Troubleshooting</h2>
+
+<p>Let's face it web server environments are complicated.  There are many moving parts and sometimes things go wrong. In order to deal with these situation we describe some common stratigies below.</p>
+
+<p>Sometimes the web app files don't synchronize between the host and guest operating system. Rerunning the deployment script can resolve this, 'vagrant provision local'.  </p>
+
+<p>To directly access the server environment use 'vagrant ssh local' or if all else fails you can delete the entire virtual machine with 'vagrant destroy local'.</p>
+
+<p>All of the above commands can be used in the HP Cloud environment by replacing the 'local' parameter with 'remote'.</p>
 
 <p>Q: How do I see the webpage<br>
 A: Open your web browser and type '192.168.56.3' for the url.  This is the static ip assigned to the vm from Vagrantfile.  </p>
 
 <p>Q: Can I directly access the virtual machine?<br>
-A: Graphical access is not enabled. To access from the command line type <code>vagrant ssh</code> from the vagrant-lamp directory. For Windows, if ssh is not available from the command line, you will need to use a 3rd party ssh client such as PuTTY. Connect using the static ip 192.168.56.3 port 22 and login with username vagrant, password vagrant.  </p>
+A: Graphical access is not enabled. To access from the command line type <code>vagrant ssh (local|remote)</code> from the vagrant-lamp directory. For Windows, if ssh is not available from the command line, you will need to use a 3rd party ssh client such as PuTTY. Connect using the static ip 192.168.56.3 port 22 and login with username vagrant, password vagrant.  </p>
 
 <p>Q: How is the server configured?<br>
 A: The Vagrantfile script defines memory and operating system parameters.  The <code>setup_env.sh</code> is used to install and configure primary applications: apache, php and mysql.  Finally sites are expected to have a <code>setup_app.sh</code> which configures the apache virtual host and populates the database in the  campapp example.</p>
@@ -72,7 +129,7 @@ A: The Vagrantfile script defines memory and operating system parameters.  The <
 A: You can change the website directly from the sites folder and refresh the browser to see the results.</p>
 
 <p>Q: How do I shutdown/restart/startover the virtual machine in case things go wrong?<br>
-A: <code>vagrant halt</code> / <code>vagrant reload</code> / <code>vagrant destroy</code>  Also if you want to rerun the script use <code>vagrant provison</code>.</p>
+A: <code>vagrant halt (local|remote))</code> / <code>vagrant reload (local|remote)</code> / <code>vagrant destroy (local|remote)</code>  Also if you want to rerun the script use <code>vagrant provison (local|remote)</code>.  Not all of these functions are currently supported by the HP provider.</p>
         </section>
 
         <aside id="sidebar">
@@ -87,7 +144,7 @@ A: <code>vagrant halt</code> / <code>vagrant reload</code> / <code>vagrant destr
 
           <p class="repo-owner"><a href="https://github.com/stackalicious/vagrant-env"></a> is maintained by <a href="https://github.com/stackalicious">stackalicious</a>.</p>
 
-          <p>This page was generated by <a href="pages.github.com">GitHub Pages</a> using the Architect theme by <a href="https://twitter.com/jasonlong">Jason Long</a>.</p>
+          <p>This page was generated by <a href="https://pages.github.com">GitHub Pages</a> using the Architect theme by <a href="https://twitter.com/jasonlong">Jason Long</a>.</p>
         </aside>
       </div>
     </div>
