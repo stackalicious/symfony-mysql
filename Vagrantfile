@@ -94,7 +94,8 @@ HERE
   end
   
   config.vm.provider :hp do |rs|
-    hpConfig = YAML::load_file("hpConfig.yml")
+    configFile = File.dirname(__FILE__) + "/hpConfig.yml";
+    hpConfig = YAML::load_file(configFile)
     
     rs.access_key  = hpConfig['access_key']
     rs.secret_key = hpConfig['secret_key']
