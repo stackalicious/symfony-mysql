@@ -42,11 +42,11 @@ Any changes you make to the web app will be automatically updated within the vir
 
 Once you have a working web app in your local vm it's time to deploy to the cloud.  First configure vagrant-env/hpConfig.yml and vagrant-env/sites/campapp/parameters.ini as described below. Finally run the command below.
 
-> vagrant up remote --provider=hp
+* `vagrant up remote --provider=hp`
 
 To see the results you need to know the ip address assigned to the compute node. For this use the following command.
 
-> vagrant ssh-config remote
+* `vagrant ssh-config remote`
 
 Deploy to Cloud
 ---------------
