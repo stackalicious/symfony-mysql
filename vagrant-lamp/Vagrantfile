@@ -50,8 +50,8 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
       #Ensure hostname exists w/in /etc/hosts
       updateHosts = <<HERE
       hostname=`hostname`; 
-      if ! grep -qe \"$hostname$\" /etc/hosts; then 
-        echo \"127.0.0.1 $hostname\" | sudo tee -a /etc/hosts; 
+      if ! grep -qe "127\..*$hostname" /etc/hosts; then 
+        echo \"127.0.0.1 $hostname\" | sudo tee -a /etc/hosts > /dev/null; 
       fi
 HERE
       config.vm.provision "shell", inline: updateHosts

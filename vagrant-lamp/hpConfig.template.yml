@@ -1,4 +1,4 @@
- # (key id) In the dropdown at top right by 'Horizon Preview' select 'Manage Access Keys' use the key id here.
+# (key id) In the dropdown at top right by 'Horizon Preview' select 'Manage Access Keys' use the key id here.
 access_key: ***************
 
 # (secret key),  Select 'Show Secret Keys' from page above and copy in the secret key.
