@@ -31,7 +31,7 @@ Now add a few plugins to your vagrant environment from the commandline:
 
 Stackalicious Vagrant environment contains a 'sites' directory where you can provide your own website files to be hosted in the virtual environment.  As an example the following instructions will install a simple website called campapp.
 
-> git clone https://github.com/stackalicious/vagrant-env.git  
+> git clone git@github.com:stackalicious/vagrant-env.git  
 > cd vagrant-env/sites  
 > git clone git@github.com:stackalicious/campapp.git
 > vagrant up local
