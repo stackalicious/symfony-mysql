@@ -33,7 +33,7 @@ Stackalicious Vagrant environment contains a 'sites' directory where you can pro
 
 > git clone https://github.com/stackalicious/vagrant-env.git  
 > cd vagrant-env/sites  
-> git clone git@github.com:dnielsen/campapp.git  
+> git clone git@github.com:stackalicious/campapp.git
 > vagrant up local
 
 Once complete you will have a complete server environment hosting your website from within VirtualBox.  You will be able to view the website only from the current machine by pointing your browser to 192.168.56.3.
