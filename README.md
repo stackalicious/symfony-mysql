@@ -19,26 +19,34 @@ This projects assumes you have already installed the following:
 * VirtualBox (https://www.virtualbox.org/wiki/Downloads) (ex: v4.3.2)
 * vagrant (http://downloads.vagrantup.com/) (ex: v1.4.3)
 
-Note: On Windows when installing Git it is recommended that you select the option to include the bin directory in your path to use the vagrant ssh command.  Otherwise you can use a differt ssh client such as PuTTY.
+Note: On Windows when installing Git it is recommended that you select the option to include the bin directory in your path to use the vagrant ssh command.  You will also need to add the git bin directory to your path, typically C:\Program Files (x86)\Git\bin (e.x. SET PATH=%PATH%;C:\Program Files (x86)\Git\bin).
 
 Install
 -----------------
 Now add a few plugins to your vagrant environment from the commandline:
 * `vagrant plugin install vagrant-vbguest` Ensures that the "guest additions" on the guest os is up to date. 
 * `vagrant plugin install vagrant-omnibus` Installs ruby and chef on the guest os allowing the vagrant script to complete.
-* `vagrant plugin install vagrant-hp` (optional) Adds ability to deploy to HP Public Cloud
-
+* `vagrant plugin install vagrant-hp` Adds ability to deploy to HP Public Cloud
+* `vagrant box add dummy https://github.com/mohitsethi/vagrant-hp/raw/master/dummy_hp.box`
 
 Stackalicious Vagrant environment contains a 'sites' directory where you can provide your own website files to be hosted in the virtual environment.  As an example the following instructions will install a simple website called campapp.
 
-> cd vagrant-lamp/sites  
+> git clone https://github.com/stackalicious/vagrant-env.git  
+> cd vagrant-env/sites  
 > git clone git@github.com:dnielsen/campapp.git  
-> cd .. 
 > vagrant up local
 
 Once complete you will have a complete server environment hosting your website from within VirtualBox.  You will be able to view the website only from the current machine by pointing your browser to 192.168.56.3.
 
 Any changes you make to the web app will be automatically updated within the virtual machine and reflected in the browser immediatly.
+
+Once you have a working web app in your local vm it's time to deploy to the cloud.  First configure vagrant-env/hpConfig.yml and vagrant-env/sites/campapp/parameters.ini as described below. Finally run the command below.
+
+> vagrant up remote --provider=hp
+
+To see the results you need to know the ip address assigned to the compute node. For this use the following command.
+
+> vagrant ssh-config remote
 
 Deploy to Cloud
 ---------------
