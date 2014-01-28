@@ -1,14 +1,14 @@
 # (key id) In the dropdown at top right by 'Horizon Preview' select 'Manage Access Keys' use the key id here.
-access_key: ***************
+access_key: REPLACEWITHACCESSKEY
 
 # (secret key),  Select 'Show Secret Keys' from page above and copy in the secret key.
-secret_key: *************** 
+secret_key: REPLACEWITHSECRETKEY 
 
 # eg "standard.xsmall|small|medium|large|xlarge"  See the 'Launch Instance' panel (here)[https://horizon.hpcloud.com/project/instances/] for details.
 flavor: standard.small 
 
 # (project id), Use the id listed on [this page](https://horizon.hpcloud.com/control_services/projects/).
-tenant_id: ************* 
+tenant_id: REPLACEWITHTENANTID 
 
 # eg "vagrant-test", machine name for the new server instance. Seems underscores are changed to dashes. 
 server_name: test-server 
