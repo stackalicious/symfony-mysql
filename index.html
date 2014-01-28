@@ -83,17 +83,13 @@ vagrant up local</p>
 
 <p>Once you have a working web app in your local vm it's time to deploy to the cloud.  First configure vagrant-env/hpConfig.yml and vagrant-env/sites/campapp/parameters.ini as described below. Finally run the command below.</p>
 
-<blockquote>
-<p>vagrant up remote --provider=hp</p>
-</blockquote>
+<ul>
+<li><code>vagrant up remote --provider=hp</code></li>
+</ul><p>To see the results you need to know the ip address assigned to the compute node. For this use the following command.</p>
 
-<p>To see the results you need to know the ip address assigned to the compute node. For this use the following command.</p>
-
-<blockquote>
-<p>vagrant ssh-config remote</p>
-</blockquote>
-
-<h2>
+<ul>
+<li><code>vagrant ssh-config remote</code></li>
+</ul><h2>
 <a name="deploy-to-cloud" class="anchor" href="#deploy-to-cloud"><span class="octicon octicon-link"></span></a>Deploy to Cloud</h2>
 
 <p>Stackalicious script also provides support for cloud deployment.  Today we support only HP Public Cloud deployment.  To get started you need to have a HP Cloud (<a href="http://www.hpcloud.com/">http://www.hpcloud.com/</a>) account set up.</p>
