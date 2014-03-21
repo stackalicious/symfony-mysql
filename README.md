@@ -29,12 +29,19 @@ Now add a few plugins to your vagrant environment from the commandline:
 * `vagrant plugin install vagrant-hp` Adds ability to deploy to HP Public Cloud
 * `vagrant box add dummy https://github.com/mohitsethi/vagrant-hp/raw/master/dummy_hp.box`
 
-Stackalicious Vagrant environment contains a 'sites' directory where you can provide your own website files to be hosted in the virtual environment.  As an example the following instructions will install a simple website called campapp.
+Stackalicious Vagrant environment contains a 'sites' directory where you can provide your own website files to be hosted in the virtual environment.  
+
+If you already have a github accout with ssh keys configured use the following instructions to install a simple website called campapp. 
 
 > git clone git@github.com:stackalicious/vagrant-env.git  
 > cd vagrant-env/sites  
-> git clone git@github.com:stackalicious/campapp.git
+> git clone git@github.com:stackalicious/campapp.git   
 > vagrant up local
+
+If you don't have a github account: 
+* download and extract stackalicious from  [here](https://github.com/stackalicious/vagrant-env/archive/master.zip)
+* download and extract the zip file [here](https://github.com/stackalicious/campapp/archive/master.zip) into the sites subdirectory. 
+* From the command line run `vagrant up local`.
 
 Once complete you will have a complete server environment hosting your website from within VirtualBox.  You will be able to view the website only from the current machine by pointing your browser to 192.168.56.3.
 
